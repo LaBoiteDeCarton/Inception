@@ -5,7 +5,7 @@ FROM debian:10.12
 RUN apt-get update
 RUN	apt-get install -y nginx openssl
 # create a new ssl certificate
-RUN mkdir /etc/nginx/ssl && openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out /etc/nginx/ssl/MyCertificate.crt -keyout /etc/nginx/ssl/MyKey.key
+RUN mkdir /etc/nginx/ssl && openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out /etc/nginx/ssl/MyCertificate.crt -keyout /etc/nginx/ssl/MyKey.key -subj "/C=FR/ST=PACA/L=Menton/O=42Nice/OU=42Nice.Inception/CN=dmercadi.com"
 # RUN useradd -m nginx
 
 # # copy the Nginx configuration file
