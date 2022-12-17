@@ -1,0 +1,143 @@
+#install the docker
+sudo apt-get install docker.io
+
+#docker commands
+
+#listing processus
+docker ps
+docker ps -a
+
+#runing docker
+docker run name:tag
+docker run -rm nom (supprime apres utilisation automatiquement)
+docker run -di --name nom image:docker
+
+docker run -dit -p 8080:80 --name nom image:version
+docker run -dit -p 8080:80 -v adress/to/data/:/adress/in/container/ --name nom image:version
+docker run -dit -p 8080:80 --mount source=nom_de_volume,target=/usr/share/nginx/html --name nom image:version
+
+#ajouter variable en par commande
+docker run -dit -p 8080:80 --name nom --env VAR="variable" image:version
+#ajouter un fichier env
+docker run -dit -p 8080:80 --name nom --env-file path-to-file image:version
+#changer le hostname 
+docker run -dit -p 8080:80 --name nom --hostname nom-host image:version
+
+#download images
+docker pull name:tag
+
+#se connecter au docker
+docker exec -ti name sh
+(apt-get update et aussi install vim pour modifier)
+
+docker inspect name
+
+#redemarer un docker 
+docker start nom
+#arreter un docker
+docker stop nom
+
+#efacer un conteneur 
+docker rm -f nom
+
+#creation de volume
+docker volume create nomvolume
+#volum a partir d'un autre container
+docker run -tid --name nom --volumes-from autre-image nom-image
+
+#lister images a disposition
+docker image ls
+ou
+docker images
+
+#supprimer image
+docker rmi nom-image
+
+
+#creation d'une image a partir d'un dockerfile
+docker built -t nominage:version .
+
+#sequences dans docker built
+docker history nom-image
+
+#Layers
+docker diff nom-conteneur (en mode RW)
+docker commit -m "commentaire" image -t image:new-version
+
+DOCKERFILE
+FROM image
+MAINTAINER mon-nom
+RUN commande a executer sur ce Layers
+
+ENV var toot
+
+RUN apt-get update
+RUN apt-get install -y nginx (y = assume-yes)
+
+VOLUME /path/to/volume/
+ENTRYPOINT["nginx", "-g", "daemon off;"]
+
+
+
+EXPOSE 8080 ?
+
+
+adress IP
+nmap -MP 127.0..
+ip a
+
+Personaliser le bridge
+Docker network create -d bridge --subnet 172.30.0.0/16 mynetwork
+docker network ls
+docker run [..] --network mynetwork [..]
+--net container:containername
+--link container:containername (ajout du host dans etc/hosts)
+--add-host <nomhost>:ip
+--dns ipdudns
+
+Docker tag image:v1.0 image:latest
+
+
+Docker socket
+sudo vim /etc/systemd/system/docker.service.d/startup_options.conf
+[Service]
+ExecStart=
+ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock
+puis
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+Test
+docker -H tcp://127.0.0.1:2375 ps
+
+
+
+DOCKER COMPOSE
+
+sudo apt-get install -y python python-pip
+Next, install docker-compose with the pip command:
+
+pip install docker-compose
+wait for the installation process to finish. Then check the installation with the docker-compose command:
+
+docker-compose -v
+
+
+installation 
+sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+
+sudo chmod +x /usr/local/bin/docker-compose
+
+
+docker-compose build
+docker-compose up (build et run)
+docker-compose up -d (mode détaché comme docker run -d)
+docker-compose ps
+docker-compose start (redemare)
+docker-compose stop
+docker-compose rm (supprime services)
+
+
+docker-compose down (stop + rm)
+
+docker-compose scale SCALE=3 (duplique)
+docker-compose pull (maj images)
