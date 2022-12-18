@@ -8,14 +8,13 @@ services:
       - 443:443
       - 9000:9000
     restart: always
-    # volumes:
-    #   - WordPress
+    volumes:
+      - WordPress:/var/www/html
   # wordpress:
   #   build: requirements/wordpress/
   #   image: wordpress:1.0
   #   restart: always
   #   volumes:
   #     - WordPress
-# volumes:
-#   WordPress
-#   DB
+volumes:
+  WordPress:
