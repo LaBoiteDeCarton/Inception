@@ -2,8 +2,8 @@ version: '3'
 services:
   nginx:
     build: requirements/nginx/
-    # container_name: nginx
-    image:  nginx:1.0
+    container_name: nginx
+    # image:  nginx:1.0
     ports:
       - 443:443
       - 9000:9000
@@ -12,6 +12,7 @@ services:
       - WordPress:/var/www/html
   # wordpress:
   #   build: requirements/wordpress/
+  #   container_name: nginx
   #   image: wordpress:1.0
   #   restart: always
   #   volumes:
