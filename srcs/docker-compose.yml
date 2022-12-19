@@ -2,20 +2,20 @@ version: '3'
 services:
   nginx:
     build: requirements/nginx/
-    container_name: nginx
+    container_name: nginx:1.0
     # image:  nginx:1.0
     ports:
       - 443:443
       - 9000:9000
     restart: always
     volumes:
-      - WordPress:/var/www/html
+      - /home/dmercadi/data/html:/var/www/html
   # wordpress:
   #   build: requirements/wordpress/
   #   container_name: nginx
   #   image: wordpress:1.0
   #   restart: always
   #   volumes:
-  #     - WordPress
-volumes:
-  WordPress:
+  #     - /home/dmercadi/data/html:/var/www/html
+# volumes:
+#   WordPress:
