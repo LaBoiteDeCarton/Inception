@@ -1,5 +1,5 @@
 version: '3'
-env-file: .env
+# env-file: .env
 services:
   nginx:
     build: requirements/nginx/
@@ -21,7 +21,7 @@ services:
     restart: always
     volumes:
       - /home/dmercadi/data/wordpress:/var/www/html
-    port:
+    ports:
       - 9000:9000
   mariadb:
     build: requirements/mariadb/
@@ -29,7 +29,7 @@ services:
     restart: always
     volumes:
       - /home/dmercadi/data/db:/var/lib/mysql
-    port:
+    ports:
       - 3306:3306
 
 # volumes:
