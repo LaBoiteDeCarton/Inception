@@ -1,0 +1,4 @@
+
+
+
+exec mysql -u root

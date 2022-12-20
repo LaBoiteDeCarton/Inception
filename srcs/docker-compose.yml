@@ -1,21 +1,36 @@
 version: '3'
+env-file: .env
 services:
   nginx:
     build: requirements/nginx/
-    container_name: nginx:1.0
+    container_name: nginx
     # image:  nginx:1.0
+    depends_on:
+      - wordpress
     ports:
       - 443:443
       - 9000:9000
     restart: always
     volumes:
-      - /home/dmercadi/data/html:/var/www/html
-  # wordpress:
-  #   build: requirements/wordpress/
-  #   container_name: nginx
-  #   image: wordpress:1.0
-  #   restart: always
-  #   volumes:
-  #     - /home/dmercadi/data/html:/var/www/html
+      - /home/dmercadi/data/wordpress:/var/www/html
+  wordpress:
+    build: requirements/wordpress/
+    depends_on:
+      - mariadb
+    container_name: nginx
+    restart: always
+    volumes:
+      - /home/dmercadi/data/wordpress:/var/www/html
+    port:
+      - 9000:9000
+  mariadb:
+    build: requirements/mariadb/
+    container_name: mariadb
+    restart: always
+    volumes:
+      - /home/dmercadi/data/db:/var/lib/mysql
+    port:
+      - 3306:3306
+
 # volumes:
 #   WordPress:
