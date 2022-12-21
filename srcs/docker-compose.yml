@@ -13,6 +13,8 @@ services:
     restart: always
     volumes:
       - /home/dmercadi/data/wordpress:/var/www/html
+    networks:
+      - inception-network
   wordpress:
     build: requirements/wordpress/
     depends_on:
@@ -23,6 +25,9 @@ services:
       - /home/dmercadi/data/wordpress:/var/www/html
     ports:
       - 9000:9000
+      - 3306:3306
+    networks:
+      - inception-network
   mariadb:
     build: requirements/mariadb/
     container_name: mariadb
@@ -31,6 +36,9 @@ services:
       - /home/dmercadi/data/db:/var/lib/mysql
     ports:
       - 3306:3306
-
+    networks:
+      - inception-network
+networks:
+  - inception-network
 # volumes:
 #   WordPress:
