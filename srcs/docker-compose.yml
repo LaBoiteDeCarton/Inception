@@ -1,5 +1,4 @@
-version: '3'
-env-file: .env
+version: '3.3'
 services:
   nginx:
     build: requirements/nginx/
@@ -43,5 +42,4 @@ services:
     networks:
       - inception-network
 networks:
-  - inception-network:
-    driver: bridge
+  inception-network:
