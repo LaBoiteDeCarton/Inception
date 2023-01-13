@@ -19,7 +19,7 @@ services:
     build: requirements/wordpress/
     depends_on:
       - mariadb
-    container_name: nginx
+    container_name: wordpress
     restart: always
     volumes:
       - /home/dmercadi/data/wordpress:/var/www/html
@@ -34,11 +34,15 @@ services:
     restart: always
     volumes:
       - /home/dmercadi/data/db:/var/lib/mysql
+    environment:
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
     ports:
       - 3306:3306
     networks:
       - inception-network
 networks:
-  - inception-network
+  - inception-network:
 # volumes:
 #   WordPress:

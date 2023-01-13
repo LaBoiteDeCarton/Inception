@@ -141,3 +141,5 @@ docker-compose down (stop + rm)
 
 docker-compose scale SCALE=3 (duplique)
 docker-compose pull (maj images)
+
+dpkg-reconfigure keyboard-configuration
