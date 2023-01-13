@@ -1,5 +1,5 @@
 version: '3'
-# env-file: .env
+env-file: .env
 services:
   nginx:
     build: requirements/nginx/
@@ -44,5 +44,4 @@ services:
       - inception-network
 networks:
   - inception-network:
-# volumes:
-#   WordPress:
+    driver: bridge
