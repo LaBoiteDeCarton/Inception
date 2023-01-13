@@ -4,15 +4,17 @@ install:
 	sudo chmod +x /usr/local/bin/docker-compose
 
 run:
-	docker-compose -f srcs/docker-compose.yml --env-file srcs/.env up -d
+	cd srcs	&& docker-compose up -d
+# run:
+# 	docker-compose -f srcs/docker-compose.yml up -d
 
 clean:
-	docker-compose -f srcs/docker-compose.yml --env-file srcs/.env down
+	cd srcs && docker-compose down
 
 stop:
-	docker-compose -f srcs/docker-compose.yml stop -d
+	cd srcs && docker-compose stop -d
 
 reload:
-	docker-compose -f srcs/docker-compose.yml start -d
+	cd srcs && docker-compose start -d
 
 .PHONY: run clean stop reload
