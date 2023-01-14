@@ -8,7 +8,7 @@ services:
     ports:
       - 443:443
       - 9000:9000
-    restart: always
+    #restart: always
     volumes:
       - /home/dmercadi/data/wordpress:/var/www/html
     networks:
@@ -29,7 +29,7 @@ services:
   mariadb:
     build: requirements/mariadb/
     container_name: mariadb
-    restart: always
+    #restart: always
     volumes:
       - /home/dmercadi/data/db:/var/lib/mysql
     environment:
