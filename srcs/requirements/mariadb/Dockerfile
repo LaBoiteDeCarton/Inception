@@ -1,9 +1,9 @@
 FROM debian:10.12
 RUN apt-get update && apt-get install -y mariadb-server
 
-#ENV DATABASE_NAME $DATABASE_NAME
-#ENV DATABASE_USER $DATABASE_USER
-#ENV DATABASE_PASSWORD $DATABASE_PASSWORD
+ENV DATABASE_NAME nametest
+ENV DATABASE_USER usertest
+ENV DATABASE_PASSWORD passtest
 
 RUN sed -i 's!#port!port !g' /etc/mysql/mariadb.conf.d/50-server.cnf; sed -i 's!127.0.0.1!0.0.0.0!g' /etc/mysql/mariadb.conf.d/50-server.cnf;
 
