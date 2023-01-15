@@ -27,18 +27,15 @@ services:
   #   networks:
   #     - inception-network
   mariadb:
-    build:
-      context: .
-      dockerfile: requirements/mariadb/
-      args:
-        DATABASE_NAME: "${DATABASE_NAME}"
-        DATABASE_USER: "${DATABASE_USER}"
-        DATABASE_PASSWORD: "${DATABASE_PASSWORD}"
+    build: requirements/mariadb/
     container_name: mariadb
     #restart: always
     volumes:
       - /home/dmercadi/data/db:/var/lib/mysql
     environment:
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
     ports:
       - 3306:3306
     networks:
