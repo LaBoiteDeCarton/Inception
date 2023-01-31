@@ -4,5 +4,5 @@ services:
     build: requirement/
     container_name: testenv
     environment:
-      - MYDATA=my_data_youhou
-      - MYDATA2=my_data_youpi
+      - MY_DATA=my_data_youhou
+      - MY_DATA2=my_data_youpi

@@ -33,7 +33,6 @@ services:
     #restart: always
     volumes:
       - /home/dmercadi/data/db:/var/lib/mysql
-    env_file: .env
     environment:
       DATABASE_NAME:  ${DATABASE_NAME}
       DATABASE_USER:  ${DATABASE_USER}
