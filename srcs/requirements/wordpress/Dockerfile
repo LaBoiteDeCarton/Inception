@@ -2,10 +2,10 @@
 FROM debian:10.12
 
 # update the package repository
-RUN apt-get update && apt-get install -y wget\
-php7.3\
-php-fpm\
-phpmysql\
+RUN apt-get update && apt-get install -y wget \
+php7.3 \
+php-fpm \
+php-mysql \
 mariadb-client
 
 # downloading wordpress v6.1 [11.11.2022]
@@ -21,7 +21,7 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/local/bin/wp
 
-COPY .conf/wordpress_config.sh .
+COPY ./conf/wordpress_config.sh .
 RUN chmod 777 wordpress_config.sh
 
 EXPOSE 3306 9000

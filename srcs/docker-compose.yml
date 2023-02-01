@@ -5,7 +5,6 @@ services:
     container_name: nginx
     ports:
       - 443:443
-      - 9000:9000
     restart: always
     volumes:
       - /home/dmercadi/data/wordpress:/var/www/html
@@ -20,9 +19,8 @@ services:
     restart: always
     volumes:
       - /home/dmercadi/data/wordpress:/var/www/html
-    ports:
-      - 9000:9000
-      - 3306:3306
+    expose: 
+      - "9000"
     networks:
       - inception-network
     env_file:
@@ -38,9 +36,10 @@ services:
       DATABASE_USER:  ${DATABASE_USER}
       DATABASE_PASSWORD:  ${DATABASE_PASSWORD}
       DATABASE_ROOT_PASSWORD:  ${DATABASE_ROOT_PASSWORD}
-    ports:
-      - 3306:3306
+    expose:
+      - "3306"
     networks:
       - inception-network
 networks:
   inception-network:
+    driver: bridge
