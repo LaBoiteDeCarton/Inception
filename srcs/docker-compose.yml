@@ -7,7 +7,7 @@ services:
       - 443:443
     restart: always
     volumes:
-      - /home/dmercadi/data/wordpress:/var/www/html
+      - WordPress:/var/www/html
     networks:
       - inception-network
   wordpress:
@@ -18,7 +18,7 @@ services:
     container_name: wordpress
     restart: always
     volumes:
-      - /home/dmercadi/data/wordpress:/var/www/html
+      - WordPress:/var/www/html
     expose: 
       - "9000"
     networks:
@@ -30,12 +30,9 @@ services:
     container_name: mariadb
     restart: always
     volumes:
-      - /home/dmercadi/data/db:/var/lib/mysql
-    environment:
-      DATABASE_NAME:  ${DATABASE_NAME}
-      DATABASE_USER:  ${DATABASE_USER}
-      DATABASE_PASSWORD:  ${DATABASE_PASSWORD}
-      DATABASE_ROOT_PASSWORD:  ${DATABASE_ROOT_PASSWORD}
+      - DB:/var/lib/mysql
+    env_file:
+      - .env
     expose:
       - "3306"
     networks:
@@ -43,3 +40,16 @@ services:
 networks:
   inception-network:
     driver: bridge
+volumes:
+  WordPress:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/dmercadi/data/wordpress'
+  DB:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/dmercadi/data/db' 

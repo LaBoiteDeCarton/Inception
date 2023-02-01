@@ -19,7 +19,7 @@ stop:
 	cd srcs && docker-compose stop -d
 
 reload:
-	cd srcs && docker-compose start -d
+	cd srcs && docker-compose start
 
 re: clean build
 
