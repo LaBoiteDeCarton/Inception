@@ -9,6 +9,8 @@ RUN mkdir /etc/nginx/ssl && openssl req -new -newkey rsa:4096 -x509 -sha256 -day
 # # copy the Nginx configuration file
 COPY /conf/nginx.conf /etc/nginx/conf.d/site.conf
 
+RUN chmod 777 /var/www/html
+
 # Volume le meme que wordpress
 # VOLUME geré dans docker-compose
 

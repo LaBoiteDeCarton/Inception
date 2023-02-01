@@ -1,8 +1,0 @@
-version: '3'
-services:
-  testenv:
-    build: requirement/
-    container_name: testenv
-    environment:
-      - MY_DATA=my_data_youhou
-      - MY_DATA2=my_data_youpi

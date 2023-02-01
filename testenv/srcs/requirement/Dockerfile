@@ -1,3 +1,0 @@
-FROM debian:10.12
-
-RUN echo $MY_DATA $MY_DATA2
