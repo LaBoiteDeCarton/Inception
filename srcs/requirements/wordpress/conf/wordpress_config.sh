@@ -1,4 +1,5 @@
 if [ ! -e /var/www/wordpress/wp-config.php ]; then
+	sleep 10
 	wp config create	--allow-root \
 		--dbname=$DATABASE_NAME \
 		--dbuser=$DATABASE_USER \

@@ -7,13 +7,19 @@ build:
 	cd srcs && docker-compose build -d
 
 run:
+	mkdir /home/dmercadi/data
+	mkdir /home/dmercadi/data/db /home/dmercadi/data/wordpress
 	cd srcs	&& docker-compose up -d
 # run:
 # 	docker-compose -f srcs/docker-compose.yml up -d
 
 clean:
 	cd srcs && docker-compose down
+
+fclean:
+	cd srcs && docker-compose down
 	docker system prune -a
+	rm -rf /home/dmercadi/data
 
 stop:
 	cd srcs && docker-compose stop -d

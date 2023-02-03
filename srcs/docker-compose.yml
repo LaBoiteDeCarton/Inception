@@ -1,5 +1,4 @@
 version: '3'
-
 services:
   nginx:
     build: requirements/nginx/
@@ -8,26 +7,25 @@ services:
       - 443:443
     restart: always
     volumes:
-      - WordPress:/var/www/html
+      - WordPress:/var/www/wordpress
     networks:
       - inception-network
-
+    depends_on:
+      - wordpress
   wordpress:
     build: requirements/wordpress/
     depends_on:
       - mariadb
-      - nginx
     container_name: wordpress
     restart: always
     volumes:
-      - WordPress:/var/www/html
+      - WordPress:/var/www/wordpress
     expose: 
       - "9000"
     networks:
       - inception-network
     env_file:
       - .env
-
   mariadb:
     build: requirements/mariadb/
     container_name: mariadb
@@ -40,11 +38,9 @@ services:
       - "3306"
     networks:
       - inception-network
-
 networks:
   inception-network:
     driver: bridge
-    
 volumes:
   WordPress:
     driver: local
