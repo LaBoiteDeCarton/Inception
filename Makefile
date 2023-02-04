@@ -7,8 +7,8 @@ build:
 	cd srcs && docker-compose build -d
 
 run:
-	mkdir /home/dmercadi/data
-	mkdir /home/dmercadi/data/db /home/dmercadi/data/wordpress
+	mkdir -p /home/dmercadi/data
+	mkdir -p /home/dmercadi/data/db /home/dmercadi/data/wordpress
 	cd srcs	&& docker-compose up -d
 # run:
 # 	docker-compose -f srcs/docker-compose.yml up -d
