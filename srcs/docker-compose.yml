@@ -4,7 +4,7 @@ services:
     build: requirements/nginx/
     container_name: nginx
     ports:
-      - 443:443
+      - "443:443"
     restart: always
     volumes:
       - WordPress:/var/www/wordpress
@@ -32,8 +32,7 @@ services:
     restart: always
     volumes:
       - DB:/var/lib/mysql
-    env_file:
-      - .env
+    env_file: .env
     expose:
       - "3306"
     networks:
