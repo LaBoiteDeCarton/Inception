@@ -18,7 +18,7 @@ clean:
 
 fclean:
 	cd srcs && docker-compose down
-	docker system prune -a
+	docker system prune -af
 	rm -rf /home/dmercadi/data
 
 stop:
