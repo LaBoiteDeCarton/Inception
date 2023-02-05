@@ -9,7 +9,7 @@ if [ ! -e /var/www/wordpress/wp-config.php ]; then
 		--path='/var/www/wordpress'
 
 	sleep 10
-	wp core install --url=$DOMAIN_NAME \
+	wp core install --url=$DOMAINE_NAME \
 		--title=$SITE_NAME \
 		--admin_user=$ADMIN_NAME \
 		--admin_password=$ADMIN_PASSWORD \

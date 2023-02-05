@@ -8,10 +8,10 @@ RUN apt-get install -y php7.3 \
 php-fpm \
 php-mysql \
 mariadb-client
-# downloading wordpress v6.0 []
-RUN wget https://wordpress.org/wordpress-6.0.tar.gz -P /var/www
+# downloading wordpress v6.1 [11.11.22]
+RUN wget https://fr.wordpress.org/wordpress-6.1-fr_FR.tar.gz -P /var/www
 # de-taring wordpress and deleting tar file
-RUN cd /var/www && tar -xzf wordpress-6.0.tar.gz && rm wordpress-6.0.tar.gz
+RUN cd /var/www && tar -xzf wordpress-6.1-fr_FR.tar.gz && rm wordpress-6.1-fr_FR.tar.gz
 # Making sure to have all permissions on the wordpress for root
 RUN	chown -R root:root /var/www/wordpress
 # download CLI and place as a binary
