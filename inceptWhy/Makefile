@@ -1,20 +1,31 @@
-PATH_YML = ./srcs/docker-compose.yml
+install:
+	sudo apt-get install docker.io curl
+	sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+	sudo chmod +x /usr/local/bin/docker-compose
 
-all:
-	@mkdir -p /home/dmercadi/data
-	@mkdir -p /home/dmercadi/data/wordpress
-	@mkdir -p /home/dmercadi/data/mariadb
-	@sudo docker-compose -f $(PATH_YML) up -d --build
+run:
+	docker-compose --version || make install
+	mkdir -p /home/dmercadi/data
+	mkdir -p /home/dmercadi/data/wordpress /home/dmercadi/data/mariadb
+	cd srcs	&& docker-compose up -d
 
-re: clean all
+build:
 
-stop:
-	@sudo docker-compose -f $(PATH_YML) stop
+down:
+	cd srcs && docker-compose down
 
-clean: stop
-	@sudo docker-compose -f $(PATH_YML) down -v
+clean: down
+	docker system prune -af
 
 fclean: clean
-	@sudo rm -rf /home/dmercadi/data/wordpress
-	@sudo rm -rf /home/dmercadi/data/mariadb
-	@sudo docker system prune -af
+	sudo rm -rf /home/dmercadi/data
+
+stop:
+	cd srcs && docker-compose stop
+
+start:
+	cd srcs && docker-compose start
+
+re: clean run
+
+.PHONY: run clean stop reload

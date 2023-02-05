@@ -22,10 +22,10 @@ RUN apt-get install mariadb-server -y
 COPY conf/my.cnf	/etc/mysql/mariadb.conf.d/50-server.cnf
 
 # Copy the bash script to create the database and the user into the container
-COPY conf/start.sh /start.sh
+COPY conf/auto_config.sh /auto_config.sh
 
 # Execute the bash script to create the database and the user
-ENTRYPOINT ["bash", "start.sh"]
+ENTRYPOINT ["bash", "auto_config.sh"]
 
 # Expose the only port allowed by the subject (MySQL)
 EXPOSE 3306
