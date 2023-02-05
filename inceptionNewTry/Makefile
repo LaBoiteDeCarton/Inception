@@ -9,6 +9,8 @@ run:
 	mkdir -p /home/dmercadi/data/wordpress /home/dmercadi/data/mariadb
 	cd srcs	&& docker-compose up -d
 
+build:
+
 down:
 	cd srcs && docker-compose down
 
@@ -24,6 +26,6 @@ stop:
 start:
 	cd srcs && docker-compose start
 
-re: clean build
+re: clean run
 
 .PHONY: run clean stop reload
