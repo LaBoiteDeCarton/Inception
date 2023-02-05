@@ -1,23 +1,29 @@
 install:
-	sudo apt-get install docker.io
+	sudo apt-get install docker.io curl
 	sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 	sudo chmod +x /usr/local/bin/docker-compose
 
-all:
-	@mkdir -p /home/mprigent/data
-	@mkdir -p /home/mprigent/data/wordpress
-	@mkdir -p /home/mprigent/data/mariadb
-	@sudo docker-compose -f ./srcs/docker-compose.yml up -d --build
+run:
+	docker-compose --version || make install
+	mkdir -p /home/dmercadi/data
+	mkdir -p /home/dmercadi/data/wordpress /home/dmercadi/data/mariadb
+	cd srcs	&& docker-compose up -d
 
-re: clean all
+down:
+	cd srcs && docker-compose down
 
-stop:
-	@sudo docker-compose -f ./srcs/docker-compose.yml stop
-
-clean: stop
-	@sudo docker-compose -f ./srcs/docker-compose.yml down -v
+clean: down
+	docker system prune -af
 
 fclean: clean
-	@sudo rm -rf /home/mprigent/data/wordpress
-	@sudo rm -rf /home/mprigent/data/mariadb
-	@sudo docker system prune -af
+	sudo rm -rf /home/dmercadi/data
+
+stop:
+	cd srcs && docker-compose stop
+
+start:
+	cd srcs && docker-compose start
+
+re: clean build
+
+.PHONY: run clean stop reload
