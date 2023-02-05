@@ -1,13 +1,19 @@
+# start from the latest stable version of the Debian operating system
 FROM debian:10.12
 
-RUN apt-get update && apt-get upgrade -y && apt install nginx -y
-RUN apt-get install openssl -y
-RUN mkdir -p /etc/nginx/ssl
-RUN openssl req -newkey rsa:4096 -days 42 -nodes -x509 \
--subj "/C=FR/ST=PACA/L=NICE/O=42/OU=42/CN=dmercadi.42.fr/UID=dmercadi" \
+# update the package repository and install Nginx, Openssl [no cache]
+RUN apt-get update && apt-get upgrade -y && apt install nginx openssl -y
+# create a new ssl certificate
+RUN mkdir -p /etc/nginx/ssl && openssl req -newkey rsa:4096 -x509 -days 365 -nodes \
 -out /etc/ssl/MyCert.crt \
--keyout /etc/ssl/MyKey.key
+-keyout /etc/ssl/MyKey.key \
+-subj "/C=FR/ST=PACA/L=NICE/O=42/OU=42/CN=dmercadi.42.fr/UID=dmercadi"
+
+# # copy the Nginx configuration file
 COPY conf/nginx.conf /etc/nginx/nginx.conf
-RUN chmod 755 /var/www/html
+
+RUN chmod 777 /var/www/html
 RUN chown -R www-data:www-data /var/www/html
+
+# launching nginx, daemon
 CMD [ "nginx", "-g", "daemon off;" ]
