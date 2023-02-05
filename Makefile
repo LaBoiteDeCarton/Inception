@@ -1,32 +1,34 @@
+DATA_DIR = /home/dmercadi/data
+
 install:
-	sudo apt-get install docker.io
+	sudo apt-get install docker.io curl
 	sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 	sudo chmod +x /usr/local/bin/docker-compose
 
-build:
-	cd srcs && docker-compose build -d
-
-run:
-	mkdir -p /home/dmercadi/data
-	mkdir -p /home/dmercadi/data/db /home/dmercadi/data/wordpress
+up:
+	docker-compose --version || make install
+	mkdir -p ${DATA_DIR}
+	mkdir -p ${DATA_DIR}/wordpress ${DATA_DIR}/db
 	cd srcs	&& docker-compose up -d
-# run:
-# 	docker-compose -f srcs/docker-compose.yml up -d
 
-clean:
+build:
+	cd srcs	&& docker-compose build
+
+down:
 	cd srcs && docker-compose down
 
-fclean:
-	cd srcs && docker-compose down
+clean: down
 	docker system prune -af
-	rm -rf /home/dmercadi/data
+
+fclean: clean
+	sudo rm -rf ${DATA_DIR}
 
 stop:
-	cd srcs && docker-compose stop -d
+	cd srcs && docker-compose stop
 
-reload:
+start:
 	cd srcs && docker-compose start
 
-re: clean build
+re: clean run
 
 .PHONY: run clean stop reload
