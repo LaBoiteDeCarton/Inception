@@ -6,7 +6,8 @@ services:
     restart: always
     volumes:
       - DB:/var/lib/mysql
-    env_file: .env
+    env_file:
+      - .env
     expose:
       - "3306"
     networks:
@@ -37,6 +38,8 @@ services:
       - inception-network
     depends_on:
       - wordpress
+    env_file:
+      - .env
 networks:
   inception-network:
     driver: bridge
